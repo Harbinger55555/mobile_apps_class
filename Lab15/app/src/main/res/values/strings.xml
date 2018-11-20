@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MySensorApplication</string>
+    <string name="luminescence">Luminescence:</string>
+    <string name="proximity">Proximity:</string>
+    <string name="steps">Steps:</string>
+    <string name="accelerometer">Accelerometer - </string>
+    <string name="azimuth">Azimuth:</string>
+    <string name="pitch">Pitch:</string>
+    <string name="roll">Roll:</string>
+    <string name="pressure">Pressure:</string>
+    <string name="temperature">Ambient Temperature:</string>
+    <string name="magnetic">Magnetic:</string>
+    <string name="sensorList">List of Available Sensors</string>
+    <string name="OK">OK</string>
+</resources>

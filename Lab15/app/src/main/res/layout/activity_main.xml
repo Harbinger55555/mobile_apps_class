@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/sensors_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:background="@drawable/row_layout_style">
+
+        <TextView
+            android:id="@+id/light_sensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/luminescence" />
+
+
+        <TextView
+            android:id="@+id/luminescence_value"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/luminescence"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:background="@drawable/row_layout_style">
+
+        <TextView
+            android:id="@+id/proximity_sensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/proximity" />
+
+
+        <TextView
+            android:id="@+id/proximity_value"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/proximity"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:background="@drawable/row_layout_style">
+
+        <TextView
+            android:id="@+id/steps_sensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/steps" />
+
+
+        <TextView
+            android:id="@+id/steps_value"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/steps"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:background="@drawable/row_layout_style">
+
+        <TextView
+            android:id="@+id/accelerometer_sensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accelerometer" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:background="@drawable/row_layout_style">
+
+            <TextView
+                android:id="@+id/azimuth_sensor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/azimuth" />
+
+
+            <TextView
+                android:id="@+id/azimuth_value"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/azimuth"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:background="@drawable/row_layout_style">
+
+            <TextView
+                android:id="@+id/pitch_sensor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pitch" />
+
+
+            <TextView
+                android:id="@+id/pitch_value"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pitch"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:background="@drawable/row_layout_style">
+
+            <TextView
+                android:id="@+id/roll_sensor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/roll" />
+
+
+            <TextView
+                android:id="@+id/roll_value"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/roll"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:background="@drawable/row_layout_style">
+
+        <TextView
+            android:id="@+id/pressure_sensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pressure" />
+
+
+        <TextView
+            android:id="@+id/pressure_value"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pressure"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:background="@drawable/row_layout_style">
+
+        <TextView
+            android:id="@+id/temperature_sensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/temperature" />
+
+
+        <TextView
+            android:id="@+id/temperature_value"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/temperature"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:background="@drawable/row_layout_style">
+
+        <TextView
+            android:id="@+id/magnetic_sensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/magnetic" />
+
+
+        <TextView
+            android:id="@+id/magnetic_value"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/magnetic"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="See Supported Sensor List"
+        android:layout_margin="8dp"
+        android:background="@drawable/row_layout_style"
+        android:backgroundTint="#7ab6ff"/>
+
+</LinearLayout>

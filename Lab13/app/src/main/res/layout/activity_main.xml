@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <View
+        android:id="@+id/shapeView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/shapeStartColor"/>
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/lab9TextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:alpha="0"/>
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/lab9TextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:alpha="0"/>
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/lab9TextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:alpha="0"/>
+    <Button
+        android:id="@+id/button"
+        android:background="@drawable/button_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="press me"/>
+</LinearLayout>
