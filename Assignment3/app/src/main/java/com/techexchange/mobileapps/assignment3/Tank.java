@@ -40,15 +40,9 @@ public class Tank {
         this.moving = false;
         this.SPEED_X = width/10;
         this.SPEED_Y = height/10;
-//        Log.d(TAG, "Width = " + width);
-//        Log.d(TAG, "Height = " + height);
-//        Log.d(TAG, "SPEED_X = " + SPEED_X);
-//        Log.d(TAG, "SPEED_Y = " + SPEED_Y);
-//        Log.d(TAG, "Tank top = " + rectF.top);
     }
 
     public void drawOnCanvas(Canvas canvas) {
-//        Log.d(TAG, "drawOnCanvas Called!");
         canvas.drawBitmap(tankSprite, null, rectF, null);
     }
 
@@ -62,13 +56,7 @@ public class Tank {
 
     public void moveTank(float tapX, float tapY) {
         if (!moving) {
-            moving = true;
             float angle = getAngle(tapX, tapY);
-            //        Log.d(TAG, "angle = " + angle);
-            //        Log.d(TAG, "TapX = " + tapX);
-            //        Log.d(TAG, "TapY = " + tapY);
-            //        Log.d(TAG, "tankX = " + X);
-            //        Log.d(TAG, "tankY = " + Y);
 
             switch (getQuadrant(tapX, tapY)) {
                 case 1:
@@ -115,27 +103,39 @@ public class Tank {
     }
 
     private void goRight() {
-        newX += width;
         turnGun(1);
-        continueRight();
+        if (!boundaryCollision()) {
+            newX += width;
+            moving = true;
+            continueRight();
+        }
     }
 
     private void goDown() {
-        newY += height;
         turnGun(2);
-        continueDown();
+        if (!boundaryCollision()) {
+            newY += height;
+            moving = true;
+            continueDown();
+        }
     }
 
     private void goLeft() {
-        newX -= width;
         turnGun(3);
-        continueLeft();
+        if (!boundaryCollision()) {
+            newX -= width;
+            moving = true;
+            continueLeft();
+        }
     }
 
     private void goUp() {
-        newY -= height;
         turnGun(4);
-        continueUp();
+        if (!boundaryCollision()) {
+            newY -= height;
+            moving = true;
+            continueUp();
+        }
     }
 
     private void continueRight() {
@@ -185,5 +185,20 @@ public class Tank {
         }
 
         return angle;
+    }
+
+    private boolean boundaryCollision() {
+        switch(gunDirection) {
+            case 1:
+                return X + width > screenWidth;
+            case 2:
+                return Y + height > screenHeight;
+            case 3:
+                return X - width < 0;
+            case 4:
+                return Y - height < 0;
+            default:
+                return false;
+        }
     }
 }
