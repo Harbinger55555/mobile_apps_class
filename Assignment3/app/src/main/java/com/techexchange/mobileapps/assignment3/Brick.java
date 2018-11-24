@@ -3,16 +3,17 @@ package com.techexchange.mobileapps.assignment3;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 public class Brick {
     private Bitmap brickSprite;
     private Boolean isDamaged;
-    private Rect rect;
+    private RectF rectF;
 
-    public Brick(Bitmap brickSprite, Rect rect) {
+    public Brick(Bitmap brickSprite, RectF rectF) {
         this.brickSprite = brickSprite;
         this.isDamaged = false;
-        this.rect = rect;
+        this.rectF = rectF;
     }
 
     public Boolean getDamaged() {
@@ -28,6 +29,6 @@ public class Brick {
     }
 
     public void drawOnCanvas(Canvas canvas) {
-        canvas.drawBitmap(brickSprite, null, rect,null);
+        canvas.drawBitmap(brickSprite, null, rectF,null);
     }
 }

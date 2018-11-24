@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent event) {
-        int x = (int)event.getX();
-        int y = (int)event.getY() - 280;
+        float x = event.getX();
+        float y = event.getY() - 280;
         gameView.onSingleTap(x, y);
         return true;
     }
