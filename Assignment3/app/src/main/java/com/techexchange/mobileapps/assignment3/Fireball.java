@@ -93,10 +93,21 @@ public class Fireball {
             moving = false;
         }
         if (bricks.brickWallCollisionFireball(X, Y)) moving = false;
+        if (tankCollision(tanks)) moving = false;
     }
 
     private boolean boundaryCollision() {
         return (X > screenWidth || Y > screenHeight ||
                 X < 0 || Y < 0);
+    }
+
+    private boolean tankCollision(Tank[] tanks) {
+        for (Tank tank : tanks) {
+            if (tank.getRectF().contains(X, Y)) {
+                Log.d(TAG, "Tank hit!");
+                return true;
+            }
+        }
+        return false;
     }
 }
