@@ -30,6 +30,7 @@ public class GameView extends View {
         bricks.drawOnCanvas(canvas);
         tank1.drawOnCanvas(canvas);
         tank2.drawOnCanvas(canvas);
+        if (tank1.getFireball() != null) tank1.getFireball().drawOnCanvas(canvas);
 
         update();
 
@@ -44,6 +45,7 @@ public class GameView extends View {
 
     private void update() {
         tank1.continueMovement();
+        if (tank1.getFireball() != null) tank1.getFireball().continueMovement();
     }
 
     @Override
@@ -59,20 +61,27 @@ public class GameView extends View {
         Bitmap defaultBrick = BitmapFactory.decodeResource(getResources(), R.drawable.default_brick);
         Bitmap damagedBrick = BitmapFactory.decodeResource(getResources(), R.drawable.default_brick);
         Bitmap tanksSprite = BitmapFactory.decodeResource(getResources(), R.drawable.tanks);
+        Bitmap fireballSprite = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
         float tankWidth = tanksSprite.getWidth() / 8;
         float tankHeight = tanksSprite.getHeight() / 8;
 
         bricks = new Bricks(screenWidth, screenHeight, defaultBrick, damagedBrick);
         tank1 = new Tank(
                 Bitmap.createBitmap(tanksSprite, 0, 0, (int) tankWidth, (int) tankHeight),
-                new RectF(spriteWidth * 4, spriteHeight * 9, spriteWidth * 5, screenHeight));
+                new RectF(spriteWidth * 4, spriteHeight * 9, spriteWidth * 5, screenHeight),
+                fireballSprite);
         tank2 = new Tank(
                 Bitmap.createBitmap(tanksSprite, 0, (int) tankHeight, (int) tankWidth, (int) tankHeight),
-                new RectF(spriteWidth * 4, 0, spriteWidth * 5, spriteHeight));
+                new RectF(spriteWidth * 4, 0, spriteWidth * 5, spriteHeight),
+                fireballSprite);
         tanks = new Tank[] {tank1, tank2};
     }
 
     public void onSingleTap(float x, float y) {
         tank1.moveTank(x, y, tanks, bricks);
+    }
+
+    public void onFling(int direction) {
+        tank1.shootFireball(direction);
     }
 }

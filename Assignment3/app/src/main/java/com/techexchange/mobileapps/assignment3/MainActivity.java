@@ -3,12 +3,14 @@ package com.techexchange.mobileapps.assignment3;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 public class MainActivity extends AppCompatActivity implements
         GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
+    private final String TAG = "MainActivity";
     private GestureDetectorCompat mDetector;
     private GameView gameView;
 
@@ -36,6 +38,28 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onFling(MotionEvent event1, MotionEvent event2,
                            float velocityX, float velocityY) {
+        Log.d(TAG, "onFling called!");
+        if (velocityX >= 0) {
+            // 1st quadrant.
+            if (velocityY <= 0) {
+                if (Math.abs(velocityX) >= Math.abs(velocityY)) gameView.onFling(1);
+                else gameView.onFling(4);
+            } else {
+                // 4th quadrant.
+                if (Math.abs(velocityX) >= Math.abs(velocityY)) gameView.onFling(1);
+                else gameView.onFling(2);
+            }
+        } else {
+            // 2nd quadrant.
+            if (velocityY <= 0) {
+                if (Math.abs(velocityX) >= Math.abs(velocityY)) gameView.onFling(3);
+                else gameView.onFling(4);
+            } else {
+                // 3rd quadrant.
+                if (Math.abs(velocityX) >= Math.abs(velocityY)) gameView.onFling(3);
+                else gameView.onFling(2);
+            }
+        }
         return true;
     }
 

@@ -20,13 +20,16 @@ public class Tank {
     private boolean moving;
     private float screenWidth;
     private float screenHeight;
+    private Bitmap fireballSprite;
+    private Fireball fireball;
 
     // These are used to check if the tank is still moving.
     private float newX;
     private float newY;
 
-    public Tank(Bitmap tankSprite, RectF rectF) {
+    public Tank(Bitmap tankSprite, RectF rectF, Bitmap fireballSprite) {
         this.tankSprite = tankSprite;
+        this.fireballSprite = fireballSprite;
         this.rectF = rectF;
         this.X = rectF.centerX();
         this.Y = rectF.centerY();
@@ -44,6 +47,14 @@ public class Tank {
 
     public RectF getRectF() {
         return rectF;
+    }
+
+    public Fireball getFireball() {
+        return fireball;
+    }
+
+    public void setFireball(Fireball fireball) {
+        this.fireball = fireball;
     }
 
     public void drawOnCanvas(Canvas canvas) {
@@ -208,5 +219,29 @@ public class Tank {
         return (boundaryCollision(feintNewX, feintNewY) ||
                 bricks.brickWallCollision(feintNewX, feintNewY) ||
                 tankCollision(tanks, feintNewX, feintNewY));
+    }
+
+    public void shootFireball(int direction) {
+        RectF fireballRectF;
+        if (fireball == null) {
+            switch (direction) {
+                case 1:
+                    fireballRectF = new RectF(rectF.right, rectF.top, rectF.right + width, rectF.bottom);
+                    break;
+                case 2:
+                    fireballRectF = new RectF(rectF.left, rectF.bottom, rectF.right, rectF.bottom + height);
+                    break;
+                case 3:
+                    fireballRectF = new RectF(rectF.left - width, rectF.top, rectF.left, rectF.bottom);
+                    break;
+                case 4:
+                    fireballRectF = new RectF(rectF.left, rectF.top - height, rectF.right, rectF.top);
+                    break;
+                default:
+                    fireballRectF = new RectF();
+                    break;
+            }
+            fireball = new Fireball(fireballSprite, fireballRectF, direction);
+        }
     }
 }
