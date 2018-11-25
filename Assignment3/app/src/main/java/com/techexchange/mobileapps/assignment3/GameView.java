@@ -69,6 +69,7 @@ public class GameView extends View {
         tank2 = new Tank(
                 Bitmap.createBitmap(tanksSprite, 0, (int) tankHeight, (int) tankWidth, (int) tankHeight),
                 new RectF(spriteWidth * 4, 0, spriteWidth * 5, spriteHeight));
+        tanks = new Tank[] {tank1, tank2};
     }
 
     public void onSingleTap(float x, float y) {

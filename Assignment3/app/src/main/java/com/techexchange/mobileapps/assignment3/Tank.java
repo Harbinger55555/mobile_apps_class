@@ -42,6 +42,10 @@ public class Tank {
         this.SPEED_Y = height/10;
     }
 
+    public RectF getRectF() {
+        return rectF;
+    }
+
     public void drawOnCanvas(Canvas canvas) {
         canvas.drawBitmap(tankSprite, null, rectF, null);
     }
@@ -194,12 +198,15 @@ public class Tank {
 
     private boolean tankCollision(Tank[] tanks, float feintNewX, float feintNewY) {
         for (Tank tank : tanks) {
+            if (this == tank) continue;
+            if (tank.getRectF().contains(feintNewX, feintNewY)) return true;
         }
         return false;
     }
 
     private boolean hasCollisions(float feintNewX, float feintNewY, Tank[] tanks, Bricks bricks) {
         return (boundaryCollision(feintNewX, feintNewY) ||
-                bricks.brickWallCollision(feintNewX, feintNewY));
+                bricks.brickWallCollision(feintNewX, feintNewY) ||
+                tankCollision(tanks, feintNewX, feintNewY));
     }
 }

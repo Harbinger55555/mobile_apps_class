@@ -41,8 +41,7 @@ public class Bricks {
 
     public boolean brickWallCollision(float feintNewX, float feintNewY) {
         for (Brick brick : bricks) {
-            RectF rectF = brick.getRectF();
-            if (rectF.contains(feintNewX, feintNewY)) return true;
+            if (brick.getRectF().contains(feintNewX, feintNewY)) return true;
         }
         return false;
     }
