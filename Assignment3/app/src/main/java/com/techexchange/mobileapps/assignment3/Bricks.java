@@ -23,25 +23,41 @@ public class Bricks {
                 new Brick(defaultSprite, new RectF(brickWidth, brickHeight * 3, brickWidth * 2, brickHeight * 4)),
                 new Brick(defaultSprite, new RectF(brickWidth * 2, brickHeight * 3, brickWidth * 3, brickHeight * 4)),
                 new Brick(defaultSprite, new RectF(brickWidth * 3, brickHeight * 3, brickWidth * 4, brickHeight * 4)),
-                new Brick(defaultSprite, new RectF(brickWidth * 3, brickHeight * 3, brickWidth * 4, brickHeight * 4)),
                 new Brick(defaultSprite, new RectF(brickWidth * 4, brickHeight * 6, brickWidth * 5, brickHeight * 7)),
                 new Brick(defaultSprite, new RectF(brickWidth * 2, brickHeight * 7, brickWidth * 3, brickHeight * 8)),
                 new Brick(defaultSprite, new RectF(brickWidth * 3, brickHeight * 7, brickWidth * 4, brickHeight * 8)),
                 new Brick(defaultSprite, new RectF(brickWidth * 4, brickHeight * 7, brickWidth * 5, brickHeight * 8)),
                 new Brick(defaultSprite, new RectF(brickWidth * 5, brickHeight * 7, brickWidth * 6, brickHeight * 8)),
                 new Brick(defaultSprite, new RectF(brickWidth * 5, brickHeight * 8, brickWidth * 6, brickHeight * 9)),
-                new Brick(defaultSprite, new RectF(brickWidth * 5, brickHeight * 8, brickWidth * 6, brickHeight * 9)),
                 new Brick(defaultSprite, new RectF(brickWidth * 5, brickHeight * 9, brickWidth * 6, screenHeight))
         };
     }
 
     public void drawOnCanvas(Canvas canvas) {
-        for (Brick brick : bricks) brick.drawOnCanvas(canvas);
+        for (Brick brick : bricks) if (brick != null) brick.drawOnCanvas(canvas);
     }
 
-    public boolean brickWallCollision(float feintNewX, float feintNewY) {
+    public boolean brickWallCollisionTank(float feintNewX, float feintNewY) {
         for (Brick brick : bricks) {
-            if (brick.getRectF().contains(feintNewX, feintNewY)) return true;
+            if (brick != null && brick.getRectF().contains(feintNewX, feintNewY)) return true;
+        }
+        return false;
+    }
+
+    public boolean brickWallCollisionFireball(float X, float Y) {
+        for (int i = 0; i < bricks.length; ++i) {
+            if (bricks[i] != null && bricks[i].getRectF().contains(X, Y)) {
+                // If fireball collision occurred, check if brick is already damaged or not, and
+                // update the state accordingly.
+                if (!bricks[i].getDamaged()) {
+                    bricks[i].setDamaged(true);
+                    bricks[i].setBrickSprite(damagedSprite);
+                    return true;
+                } else {
+                    bricks[i] = null;
+                    return true;
+                }
+            }
         }
         return false;
     }

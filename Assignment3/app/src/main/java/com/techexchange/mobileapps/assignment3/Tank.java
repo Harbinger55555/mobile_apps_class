@@ -115,6 +115,12 @@ public class Tank {
                     break;
             }
         }
+
+        // Check for fireball status as well.
+        if (fireball != null && !fireball.isMoving()) {
+            Log.d(TAG, "Fireball set to null.");
+            fireball = null;
+        }
     }
 
     private void goRight(Tank[] tanks, Bricks bricks) {
@@ -217,25 +223,29 @@ public class Tank {
 
     private boolean hasCollisions(float feintNewX, float feintNewY, Tank[] tanks, Bricks bricks) {
         return (boundaryCollision(feintNewX, feintNewY) ||
-                bricks.brickWallCollision(feintNewX, feintNewY) ||
+                bricks.brickWallCollisionTank(feintNewX, feintNewY) ||
                 tankCollision(tanks, feintNewX, feintNewY));
     }
 
     public void shootFireball(int direction) {
         RectF fireballRectF;
-        if (fireball == null) {
+        if (fireball == null && !moving) {
             switch (direction) {
                 case 1:
                     fireballRectF = new RectF(rectF.right, rectF.top, rectF.right + width, rectF.bottom);
+                    turnGun(1);
                     break;
                 case 2:
                     fireballRectF = new RectF(rectF.left, rectF.bottom, rectF.right, rectF.bottom + height);
+                    turnGun(2);
                     break;
                 case 3:
                     fireballRectF = new RectF(rectF.left - width, rectF.top, rectF.left, rectF.bottom);
+                    turnGun(3);
                     break;
                 case 4:
                     fireballRectF = new RectF(rectF.left, rectF.top - height, rectF.right, rectF.top);
+                    turnGun(4);
                     break;
                 default:
                     fireballRectF = new RectF();

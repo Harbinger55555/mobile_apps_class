@@ -9,20 +9,27 @@ public class Fireball {
     private final String TAG = "Fireball";
     private Bitmap fireballSprite;
     private RectF rectF;
-    private final float SPEED = 50;
+    private final float SPEED = 30;
     private boolean moving;
     private int ballDirection; // right, down, left, up = 1, 2, 3, 4
     private float X;
     private float Y;
+    private float width;
+    private float height;
+    private float screenWidth;
+    private float screenHeight;
 
     // These are used to check if the fireball is still moving.
     private float newX;
     private float newY;
 
     public Fireball(Bitmap fireballSprite, RectF rectF, int ballDirection) {
-        Log.d(TAG, "Fireball initialized!");
         this.fireballSprite = fireballSprite;
         this.rectF = rectF;
+        this.width = rectF.width();
+        this.height = rectF.height();
+        this.screenWidth = width * 8;
+        this.screenHeight = height * 10;
         this.X = rectF.centerX();
         this.Y = rectF.centerY();
         this.ballDirection = ballDirection;
@@ -31,7 +38,11 @@ public class Fireball {
         this.moving = true;
     }
 
-    public void continueMovement() {
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void continueMovement(Tank[] tanks, Bricks bricks) {
         if (moving) {
             switch (ballDirection) {
                 case 1:
@@ -49,6 +60,7 @@ public class Fireball {
                 default:
                     break;
             }
+            checkCollisions(tanks, bricks);
         }
     }
 
@@ -74,5 +86,17 @@ public class Fireball {
 
     public void drawOnCanvas(Canvas canvas) {
         canvas.drawBitmap(fireballSprite, null, rectF, null);
+    }
+
+    private void checkCollisions(Tank[] tanks, Bricks bricks) {
+        if (boundaryCollision()) {
+            moving = false;
+        }
+        if (bricks.brickWallCollisionFireball(X, Y)) moving = false;
+    }
+
+    private boolean boundaryCollision() {
+        return (X > screenWidth || Y > screenHeight ||
+                X < 0 || Y < 0);
     }
 }

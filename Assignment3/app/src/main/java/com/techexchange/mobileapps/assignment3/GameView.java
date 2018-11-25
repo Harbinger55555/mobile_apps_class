@@ -45,7 +45,7 @@ public class GameView extends View {
 
     private void update() {
         tank1.continueMovement();
-        if (tank1.getFireball() != null) tank1.getFireball().continueMovement();
+        if (tank1.getFireball() != null) tank1.getFireball().continueMovement(tanks, bricks);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class GameView extends View {
         float spriteHeight = screenHeight / 10;
 
         Bitmap defaultBrick = BitmapFactory.decodeResource(getResources(), R.drawable.default_brick);
-        Bitmap damagedBrick = BitmapFactory.decodeResource(getResources(), R.drawable.default_brick);
+        Bitmap damagedBrick = BitmapFactory.decodeResource(getResources(), R.drawable.damaged_brick);
         Bitmap tanksSprite = BitmapFactory.decodeResource(getResources(), R.drawable.tanks);
         Bitmap fireballSprite = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
         float tankWidth = tanksSprite.getWidth() / 8;
