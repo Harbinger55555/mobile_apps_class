@@ -54,26 +54,26 @@ public class Tank {
                 bitmap.getHeight(), matrix, true);
     }
 
-    public void moveTank(float tapX, float tapY) {
+    public void moveTank(float tapX, float tapY, Tank[] tanks, Bricks bricks) {
         if (!moving) {
             float angle = getAngle(tapX, tapY);
 
             switch (getQuadrant(tapX, tapY)) {
                 case 1:
-                    if (angle >= 315) goRight();
-                    else goUp();
+                    if (angle >= 315) goRight(tanks, bricks);
+                    else goUp(tanks, bricks);
                     break;
                 case 2:
-                    if (angle <= 225) goLeft();
-                    else goUp();
+                    if (angle <= 225) goLeft(tanks, bricks);
+                    else goUp(tanks, bricks);
                     break;
                 case 3:
-                    if (angle >= 135) goLeft();
-                    else goDown();
+                    if (angle >= 135) goLeft(tanks, bricks);
+                    else goDown(tanks, bricks);
                     break;
                 case 4:
-                    if (angle <= 45) goRight();
-                    else goDown();
+                    if (angle <= 45) goRight(tanks, bricks);
+                    else goDown(tanks, bricks);
                     break;
                 default:
                     break;
@@ -102,36 +102,36 @@ public class Tank {
         }
     }
 
-    private void goRight() {
+    private void goRight(Tank[] tanks, Bricks bricks) {
         turnGun(1);
-        if (!boundaryCollision()) {
+        if (!hasCollisions(X + width, Y, tanks, bricks)) {
             newX += width;
             moving = true;
             continueRight();
         }
     }
 
-    private void goDown() {
+    private void goDown(Tank[] tanks, Bricks bricks) {
         turnGun(2);
-        if (!boundaryCollision()) {
+        if (!hasCollisions(X,Y + height, tanks, bricks)) {
             newY += height;
             moving = true;
             continueDown();
         }
     }
 
-    private void goLeft() {
+    private void goLeft(Tank[] tanks, Bricks bricks) {
         turnGun(3);
-        if (!boundaryCollision()) {
+        if (!hasCollisions(X - width, Y, tanks, bricks)) {
             newX -= width;
             moving = true;
             continueLeft();
         }
     }
 
-    private void goUp() {
+    private void goUp(Tank[] tanks, Bricks bricks) {
         turnGun(4);
-        if (!boundaryCollision()) {
+        if (!hasCollisions(X, Y - height, tanks, bricks)) {
             newY -= height;
             moving = true;
             continueUp();
@@ -187,18 +187,19 @@ public class Tank {
         return angle;
     }
 
-    private boolean boundaryCollision() {
-        switch(gunDirection) {
-            case 1:
-                return X + width > screenWidth;
-            case 2:
-                return Y + height > screenHeight;
-            case 3:
-                return X - width < 0;
-            case 4:
-                return Y - height < 0;
-            default:
-                return false;
+    private boolean boundaryCollision(float feintNewX, float feintNewY) {
+        return (feintNewX > screenWidth || feintNewY > screenHeight ||
+                feintNewX < 0 || feintNewY < 0);
+    }
+
+    private boolean tankCollision(Tank[] tanks, float feintNewX, float feintNewY) {
+        for (Tank tank : tanks) {
         }
+        return false;
+    }
+
+    private boolean hasCollisions(float feintNewX, float feintNewY, Tank[] tanks, Bricks bricks) {
+        return (boundaryCollision(feintNewX, feintNewY) ||
+                bricks.brickWallCollision(feintNewX, feintNewY));
     }
 }

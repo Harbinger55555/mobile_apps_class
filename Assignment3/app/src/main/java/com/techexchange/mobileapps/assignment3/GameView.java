@@ -15,6 +15,7 @@ public class GameView extends View {
     private Bricks bricks;
     private Tank tank1;
     private Tank tank2;
+    private Tank[] tanks;
 
     private float screenWidth;
     private float screenHeight;
@@ -57,20 +58,20 @@ public class GameView extends View {
 
         Bitmap defaultBrick = BitmapFactory.decodeResource(getResources(), R.drawable.default_brick);
         Bitmap damagedBrick = BitmapFactory.decodeResource(getResources(), R.drawable.default_brick);
-        Bitmap tanks = BitmapFactory.decodeResource(getResources(), R.drawable.tanks);
-        float tankWidth = tanks.getWidth() / 8;
-        float tankHeight = tanks.getHeight() / 8;
+        Bitmap tanksSprite = BitmapFactory.decodeResource(getResources(), R.drawable.tanks);
+        float tankWidth = tanksSprite.getWidth() / 8;
+        float tankHeight = tanksSprite.getHeight() / 8;
 
         bricks = new Bricks(screenWidth, screenHeight, defaultBrick, damagedBrick);
         tank1 = new Tank(
-                Bitmap.createBitmap(tanks, 0, 0, (int) tankWidth, (int) tankHeight),
+                Bitmap.createBitmap(tanksSprite, 0, 0, (int) tankWidth, (int) tankHeight),
                 new RectF(spriteWidth * 4, spriteHeight * 9, spriteWidth * 5, screenHeight));
         tank2 = new Tank(
-                Bitmap.createBitmap(tanks, 0, (int) tankHeight, (int) tankWidth, (int) tankHeight),
+                Bitmap.createBitmap(tanksSprite, 0, (int) tankHeight, (int) tankWidth, (int) tankHeight),
                 new RectF(spriteWidth * 4, 0, spriteWidth * 5, spriteHeight));
     }
 
     public void onSingleTap(float x, float y) {
-        tank1.moveTank(x, y);
+        tank1.moveTank(x, y, tanks, bricks);
     }
 }

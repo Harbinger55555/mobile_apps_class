@@ -28,6 +28,8 @@ public class Brick {
         this.brickSprite = brickSprite;
     }
 
+    public RectF getRectF() { return rectF; }
+
     public void drawOnCanvas(Canvas canvas) {
         canvas.drawBitmap(brickSprite, null, rectF,null);
     }

@@ -14,8 +14,6 @@ public class Bricks {
         this.damagedSprite = damagedSprite;
         float brickWidth = screenWidth/8;
         float brickHeight = screenHeight/10;
-        Log.d(TAG, "brickHeight = " + brickHeight);
-        Log.d(TAG, "brickWidth = " + brickWidth);
         this.bricks = new Brick[]{
                 new Brick(defaultSprite, new RectF(brickWidth, 0, brickWidth * 2, brickHeight)),
                 new Brick(defaultSprite, new RectF(brickWidth * 5, 0, brickWidth * 6, brickHeight)),
@@ -35,10 +33,17 @@ public class Bricks {
                 new Brick(defaultSprite, new RectF(brickWidth * 5, brickHeight * 8, brickWidth * 6, brickHeight * 9)),
                 new Brick(defaultSprite, new RectF(brickWidth * 5, brickHeight * 9, brickWidth * 6, screenHeight))
         };
-        Log.d(TAG, "Bottom most brick top = " + brickHeight * 9);
     }
 
     public void drawOnCanvas(Canvas canvas) {
         for (Brick brick : bricks) brick.drawOnCanvas(canvas);
+    }
+
+    public boolean brickWallCollision(float feintNewX, float feintNewY) {
+        for (Brick brick : bricks) {
+            RectF rectF = brick.getRectF();
+            if (rectF.contains(feintNewX, feintNewY)) return true;
+        }
+        return false;
     }
 }
