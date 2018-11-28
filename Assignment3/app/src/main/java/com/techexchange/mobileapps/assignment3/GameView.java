@@ -31,6 +31,7 @@ public class GameView extends View {
         tank1.drawOnCanvas(canvas);
         tank2.drawOnCanvas(canvas);
         if (tank1.getFireball() != null) tank1.getFireball().drawOnCanvas(canvas);
+        if (tank2.getFireball() != null) tank2.getFireball().drawOnCanvas(canvas);
 
         update();
 
@@ -45,7 +46,9 @@ public class GameView extends View {
 
     private void update() {
         tank1.continueMovement();
+        tank2.continueMovement();
         if (tank1.getFireball() != null) tank1.getFireball().continueMovement(tanks, bricks);
+        if (tank2.getFireball() != null) tank2.getFireball().continueMovement(tanks, bricks);
     }
 
     @Override
@@ -77,11 +80,15 @@ public class GameView extends View {
         tanks = new Tank[] {tank1, tank2};
     }
 
-    public void onSingleTap(float x, float y) {
+    public void onSingleTapTank1(float x, float y) {
         tank1.moveTank(x, y, tanks, bricks);
     }
 
-    public void onFling(int direction) {
+    public void onSingleTapTank2(float x, float y) { tank2.moveTank(x, y, tanks, bricks); }
+
+    public void onFlingTank1(int direction) {
         tank1.shootFireball(direction);
     }
+
+    public void onFlingTank2(int direction) { tank2.shootFireball(direction); }
 }
