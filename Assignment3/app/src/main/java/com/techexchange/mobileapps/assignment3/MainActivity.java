@@ -164,6 +164,17 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onSingleTapUp(MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY() - 280;
+
+        float[] buffer = new float[3];
+        buffer[0] = TAPPED;
+        buffer[1] = x / screenWidth;
+        buffer[2] = y / screenHeight;
+        sendReceiveThread.write(buffer);
+
+        if (isHost) gameView.onSingleTapTank1(x, y);
+        else gameView.onSingleTapTank2(x, y);
         return true;
     }
 
@@ -179,17 +190,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY() - 280;
-
-        float[] buffer = new float[3];
-        buffer[0] = TAPPED;
-        buffer[1] = x / screenWidth;
-        buffer[2] = y / screenHeight;
-        sendReceiveThread.write(buffer);
-
-        if (isHost) gameView.onSingleTapTank1(x, y);
-        else gameView.onSingleTapTank2(x, y);
         return true;
     }
 

@@ -9,7 +9,7 @@ public class Fireball {
     private final String TAG = "Fireball";
     private Bitmap fireballSprite;
     private RectF rectF;
-    private final float SPEED = 30;
+    private final float SPEED;
     private boolean moving;
     private int ballDirection; // right, down, left, up = 1, 2, 3, 4
     private float X;
@@ -30,6 +30,7 @@ public class Fireball {
         this.height = rectF.height();
         this.screenWidth = width * 8;
         this.screenHeight = height * 10;
+        this.SPEED = width/5;
         this.X = rectF.centerX();
         this.Y = rectF.centerY();
         this.ballDirection = ballDirection;

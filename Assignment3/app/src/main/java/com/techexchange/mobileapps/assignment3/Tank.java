@@ -70,7 +70,7 @@ public class Tank {
     }
 
     public void moveTank(float tapX, float tapY, Tank[] tanks, Bricks bricks) {
-        if (!moving) {
+//        if (!moving) {
             float angle = getAngle(tapX, tapY);
 
             switch (getQuadrant(tapX, tapY)) {
@@ -93,7 +93,7 @@ public class Tank {
                 default:
                     break;
             }
-        }
+//        }
     }
 
     public void continueMovement() {
@@ -118,7 +118,6 @@ public class Tank {
 
         // Check for fireball status as well.
         if (fireball != null && !fireball.isMoving()) {
-            Log.d(TAG, "Fireball set to null.");
             fireball = null;
         }
     }
