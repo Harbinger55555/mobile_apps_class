@@ -11,7 +11,6 @@ import android.view.View;
 public class GameView extends View {
     private static final String TAG = "GameView";
     private static long SLEEP_MS = 30;
-    private static final float TIME_STEP = SLEEP_MS / 1000.f;
     private Bricks bricks;
     private Tank tank1;
     private Tank tank2;

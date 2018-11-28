@@ -14,13 +14,11 @@ import android.os.StrictMode;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +26,6 @@ import android.widget.Toast;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -195,13 +191,9 @@ public class MainActivity extends AppCompatActivity implements
 
     // Wifi Direct Logic.
 
-    Button onOffButton;
     Button discoverButton;
-    Button sendButton;
     ListView listView;
-    TextView readMsgTextView;
     TextView connectionStatusTextView;
-    EditText writeMsgEditText;
 
     WifiManager wifiManager;
     WifiP2pManager wifiP2pManager;
@@ -365,28 +357,18 @@ public class MainActivity extends AppCompatActivity implements
     });
 
     private void executeListener() {
-        onOffButton.setOnClickListener(v -> {
-            if (wifiManager.isWifiEnabled()) {
-                wifiManager.setWifiEnabled(false);
-                onOffButton.setText("Wifi On");
-            } else {
-                wifiManager.setWifiEnabled(true);
-                onOffButton.setText("Wifi off");
-            }
-        });
-
         discoverButton.setOnClickListener(v -> {
             wifiP2pManager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
                 @Override
                 public void onSuccess() {
                     // Successfully started discovering
-                    connectionStatusTextView.setText("Discovery Started");
+                    connectionStatusTextView.setText("Searching...");
                 }
 
                 @Override
                 public void onFailure(int reason) {
                     // Failed to start discovering
-                    connectionStatusTextView.setText("Discovery failed to Start");
+                    connectionStatusTextView.setText("Search failed");
                 }
             });
         });
@@ -445,13 +427,13 @@ public class MainActivity extends AppCompatActivity implements
 
             ArrayAdapter<String> arrayAdapter
                     = new ArrayAdapter<>(getApplicationContext(),
-                    android.R.layout.simple_list_item_1, deviceNameArray);
+                    R.layout.device_list_item, deviceNameArray);
 
             listView.setAdapter(arrayAdapter);
 
             if (peers.size() == 0) {
                 Toast.makeText(getApplicationContext(),
-                        "No Device Found!", Toast.LENGTH_SHORT).show();
+                        "No Enemies Found!", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -479,17 +461,13 @@ public class MainActivity extends AppCompatActivity implements
     };
 
     private void initializeComponents() {
-        onOffButton = findViewById(R.id.onOff);
         discoverButton = findViewById(R.id.discover);
-        sendButton = findViewById(R.id.sendButton);
         listView = findViewById(R.id.peerListView);
-        readMsgTextView = findViewById(R.id.readMsg);
         connectionStatusTextView = findViewById(R.id.connectionStatus);
-        writeMsgEditText = findViewById(R.id.writeMsg);
 
         wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        if (wifiManager.isWifiEnabled()) {
-            onOffButton.setText("Wifi off");
+        if (!wifiManager.isWifiEnabled()) {
+            // Notify user that they are currently offline.
         }
 
         wifiP2pManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);

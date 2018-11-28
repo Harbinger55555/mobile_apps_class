@@ -51,7 +51,7 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
             if (networkInfo.isConnected()) {
                 wifiP2pManager.requestConnectionInfo(channel, activity.connectionInfoListener);
             } else {
-                activity.connectionStatusTextView.setText("Device disconnected");
+                activity.connectionStatusTextView.setText("Not in warfare");
             }
         } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
             // Respond to this device's Wi-Fi state changing.
