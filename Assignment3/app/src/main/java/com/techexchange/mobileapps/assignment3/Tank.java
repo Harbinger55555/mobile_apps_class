@@ -15,6 +15,10 @@ public class Tank {
     private float width;
     private float height;
     private int gunDirection; // right, down, left, up = 1, 2, 3, 4
+    private final int DIRECTION_RIGHT = 1;
+    private final int DIRECTION_DOWN = 2;
+    private final int DIRECTION_LEFT = 3;
+    private final int DIRECTION_UP = 4;
     private final float SPEED_X;
     private final float SPEED_Y;
     private boolean moving;
@@ -37,7 +41,7 @@ public class Tank {
         this.height = rectF.height();
         this.screenWidth = width * 8;
         this.screenHeight = height * 10;
-        this.gunDirection = 1;
+        this.gunDirection = DIRECTION_RIGHT;
         this.newX = X;
         this.newY = Y;
         this.moving = false;
@@ -70,45 +74,43 @@ public class Tank {
     }
 
     public void moveTank(float tapX, float tapY, Tank[] tanks, Bricks bricks) {
-//        if (!moving) {
-            float angle = getAngle(tapX, tapY);
+        float angle = getAngle(tapX, tapY);
 
-            switch (getQuadrant(tapX, tapY)) {
-                case 1:
-                    if (angle >= 315) goRight(tanks, bricks);
-                    else goUp(tanks, bricks);
-                    break;
-                case 2:
-                    if (angle <= 225) goLeft(tanks, bricks);
-                    else goUp(tanks, bricks);
-                    break;
-                case 3:
-                    if (angle >= 135) goLeft(tanks, bricks);
-                    else goDown(tanks, bricks);
-                    break;
-                case 4:
-                    if (angle <= 45) goRight(tanks, bricks);
-                    else goDown(tanks, bricks);
-                    break;
-                default:
-                    break;
-            }
-//        }
+        switch (getQuadrant(tapX, tapY)) {
+            case 1:
+                if (angle >= 315) goRight(tanks, bricks);
+                else goUp(tanks, bricks);
+                break;
+            case 2:
+                if (angle <= 225) goLeft(tanks, bricks);
+                else goUp(tanks, bricks);
+                break;
+            case 3:
+                if (angle >= 135) goLeft(tanks, bricks);
+                else goDown(tanks, bricks);
+                break;
+            case 4:
+                if (angle <= 45) goRight(tanks, bricks);
+                else goDown(tanks, bricks);
+                break;
+            default:
+                break;
+        }
     }
 
     public void continueMovement() {
         if (moving) {
             switch (gunDirection) {
-                case 1:
+                case DIRECTION_RIGHT:
                     continueRight();
                     break;
-                case 2:
+                case DIRECTION_DOWN:
                     continueDown();
                     break;
-                case 3:
+                case DIRECTION_LEFT:
                     continueLeft();
                     break;
-                case 4:
+                case DIRECTION_UP:
                     continueUp();
                     break;
                 default:
@@ -123,38 +125,50 @@ public class Tank {
     }
 
     private void goRight(Tank[] tanks, Bricks bricks) {
-        turnGun(1);
-        if (!hasCollisions(X + width, Y, tanks, bricks)) {
-            newX += width;
-            moving = true;
-            continueRight();
+        // Check if direction is opposite.
+        if (gunDirection == DIRECTION_LEFT || !moving) {
+            turnGun(DIRECTION_RIGHT);
+            if (!hasCollisions(X + width, Y, tanks, bricks)) {
+                newX += width;
+                moving = true;
+                continueRight();
+            }
         }
     }
 
     private void goDown(Tank[] tanks, Bricks bricks) {
-        turnGun(2);
-        if (!hasCollisions(X,Y + height, tanks, bricks)) {
-            newY += height;
-            moving = true;
-            continueDown();
+        // Check if direction is opposite.
+        if (gunDirection == DIRECTION_UP || !moving) {
+            turnGun(DIRECTION_DOWN);
+            if (!hasCollisions(X, Y + height, tanks, bricks)) {
+                newY += height;
+                moving = true;
+                continueDown();
+            }
         }
     }
 
     private void goLeft(Tank[] tanks, Bricks bricks) {
-        turnGun(3);
-        if (!hasCollisions(X - width, Y, tanks, bricks)) {
-            newX -= width;
-            moving = true;
-            continueLeft();
+        // Check if direction is opposite.
+        if (gunDirection == DIRECTION_RIGHT || !moving) {
+            turnGun(DIRECTION_LEFT);
+            if (!hasCollisions(X - width, Y, tanks, bricks)) {
+                newX -= width;
+                moving = true;
+                continueLeft();
+            }
         }
     }
 
     private void goUp(Tank[] tanks, Bricks bricks) {
-        turnGun(4);
-        if (!hasCollisions(X, Y - height, tanks, bricks)) {
-            newY -= height;
-            moving = true;
-            continueUp();
+        // Check if direction is opposite.
+        if (gunDirection == DIRECTION_DOWN || !moving) {
+            turnGun(DIRECTION_UP);
+            if (!hasCollisions(X, Y - height, tanks, bricks)) {
+                newY -= height;
+                moving = true;
+                continueUp();
+            }
         }
     }
 
@@ -230,21 +244,21 @@ public class Tank {
         RectF fireballRectF;
         if (fireball == null && !moving) {
             switch (direction) {
-                case 1:
+                case DIRECTION_RIGHT:
                     fireballRectF = new RectF(rectF.right, rectF.top, rectF.right + width, rectF.bottom);
-                    turnGun(1);
+                    turnGun(DIRECTION_RIGHT);
                     break;
-                case 2:
+                case DIRECTION_DOWN:
                     fireballRectF = new RectF(rectF.left, rectF.bottom, rectF.right, rectF.bottom + height);
-                    turnGun(2);
+                    turnGun(DIRECTION_DOWN);
                     break;
-                case 3:
+                case DIRECTION_LEFT:
                     fireballRectF = new RectF(rectF.left - width, rectF.top, rectF.left, rectF.bottom);
-                    turnGun(3);
+                    turnGun(DIRECTION_LEFT);
                     break;
-                case 4:
+                case DIRECTION_UP:
                     fireballRectF = new RectF(rectF.left, rectF.top - height, rectF.right, rectF.top);
-                    turnGun(4);
+                    turnGun(DIRECTION_UP);
                     break;
                 default:
                     fireballRectF = new RectF();
